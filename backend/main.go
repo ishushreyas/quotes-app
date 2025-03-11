@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/rs/cors"
 )
 
 // Quote structure to hold our quote data
@@ -81,12 +80,10 @@ func main() {
 	r.HandleFunc("/quotes/{id}", updateQuote).Methods("PUT")
 	r.HandleFunc("/quotes/{id}", deleteQuote).Methods("DELETE")
 
-	// Wrap the router with CORS middleware
-	handler := c.Handler(r)
 
 	// Start server
 	fmt.Println("Server is running on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", handler))
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
 
 // getQuotes returns all quotes
